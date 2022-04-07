@@ -19,42 +19,60 @@
 
 using namespace std;
 
-void MDD::lecturaDatosFichero(string archivo){
+
+MDD::MDD(char* archivo){
+    lecturaDatosFichero(archivo);
+};
+
+void MDD::lecturaDatosFichero(char* archivo){
 //  Acceso al archivo proporcionado
     ifstream file(archivo);
     if(!file.is_open()){
-        
+        cerr << "Error al intentar abrir el archivo " << archivo << endl;
+        exit(0);
     }
 
 // Guardamos los valores de la primera fila que son el numero de elementos y la cantidad de elementos a elegir
-    file >> num_elem >> num_sel;
+    file >> num_elem 
+         >> num_sel;
+// Creamos una matriz auxiliar con el tamaño deseado, la cual pasaremos por referencia a la matriz atributo     
+    vector<vector<double>> aux( num_elem, vector<double> (num_elem) );
+    matriz = aux;    
 
-// Inicializamos la matriz     
-// vector<vector<double>> matriz (num_elem, vector);
-    
-// Introducimos los valores del archivo en la matriz    
-    int file_i, file_j, file_d;
 // Calculamos la cantidad de lineas a introducir que tiene el fichero    
     const int NUM_LINEAS = num_elem*(num_elem-1)/2;
 
-    for(int i=0; i < NUM_LINEAS; i++){
-        file >> file_i >> file_j >> file_d;
-        matriz[file_i][file_j] = file_d;
+// Introducimos los valores del archivo en la matriz    
+    int file_i, file_j;
+    double file_d;
+    
+    for(int i=0; i < NUM_LINEAS; i++){      // Segun el patron de valores de los archivos, obtenemos:
+        file >> file_i;                     // El primer indice de la matriz (equivale a la primera posicion) 
+        file >> file_j;                      // El segundo indice de la matriz (equivale a la segunda posicion)
+        file >> file_d;                     // La distancia de la primera posicion a la segunda
+        matriz[file_i][file_j] = file_d;    // Introducimos el valor en la matriz
     }
+    
+};
 
-    //Imprimo la matriz para comprobar la insercion de los datos es correcta
-    for(int i=0; i<num_elem; i++){
-        for(int j=i; j<num_elem;j++){
+
+
+void MDD::imprimirMatriz(){
+    cout << "Matriz de valores: "<< endl;
+    for(int i=0; i<num_elem-1; i++){
+        cout << "| ";
+        for(int j=i+1; j<num_elem;j++){
             cout << matriz[i][j] << " " ;
         }
-        cout << endl;
+        cout << " |" << endl;
     }
 
 };
 
 
-
 void MDD::greedy(int n, int m, double *dist){
 
+    
 
-}
+
+};

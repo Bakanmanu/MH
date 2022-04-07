@@ -7,18 +7,18 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]){
+int main(int argc, char* argv[]){
     /**
      * @todo {          
      * } 
      *  
     */
-    
-    MDD Problema;
+    cout << argv[1] << endl;
+
+    MDD Problema(argv[1]);
 
 
-    MDD::lecturaDatosFichero(argv[1]);
-
+    Problema.imprimirMatriz();
 
 
    cout << endl; 

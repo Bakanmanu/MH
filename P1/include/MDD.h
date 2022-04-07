@@ -19,21 +19,35 @@
 #include <string>
 
 #include "random.hpp"
+
+using namespace std;
+
 /**
  * @brief 
  * 
  */
+
 class MDD{
     private:
         vector<vector<double>> matriz;
         int num_elem, num_sel;
 
-
     public:
+        /**
+         * @brief Construct a new MDD object
+         * 
+         * @param archivo 
+         */
+        MDD(char* archivo);      
         
-        
-        void lecturaDatosFichero(string archivo);
+        /**
+         * @brief Metodo para guardar en la matriz dada por un fichero en el atributo del objeto
+         * 
+         * @param archivo Nombre del archivo del que obtener los datos de la matriz
+         */
+        void lecturaDatosFichero(char* archivo);
 
+        void imprimirMatriz();
 
 
         /**
