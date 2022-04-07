@@ -41,23 +41,28 @@ class MDD{
         MDD(char* archivo);      
         
         /**
-         * @brief Metodo para guardar en la matriz dada por un fichero en el atributo del objeto
+         * @brief Metodo para guardar los valores dados en un fichero, los valores a tomar son:
+         * num_elem -> Número de elementos del problema
+         * num_sel -> Numero de elementos a seleccionar del problema
+         * matriz -> Distancias de un elemento a otro 
          * 
          * @param archivo Nombre del archivo del que obtener los datos de la matriz
          */
         void lecturaDatosFichero(char* archivo);
 
+        /**
+         * @brief Imprime por pantalla la matriz de distancias
+         * 
+         */
         void imprimirMatriz();
 
 
         /**
          * @brief Función que aplicará el algoritmo greedy para resolver el problema
          * 
-         * @param n Numero de posibles posiciones que puede tomar el algoritmo
-         * @param m Número de posiciones que debe de tomar para resolver el algoritmo
-         * @param dist Matriz simétrica de tamaño n que contiene las distancias entre los elementos
+         * @param seed Valor de la semilla que tendrá la funcion que determina el valor aleatorio
          */
-        void greedy(int n, int m, double *dist);
+        vector<int> greedy(int seed);
 
         /**
          * @brief 

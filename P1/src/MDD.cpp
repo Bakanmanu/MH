@@ -14,6 +14,7 @@
 #include <cassert>
 #include <vector>
 #include <string>
+#include <random>
 
 #include "MDD.h"
 
@@ -55,8 +56,6 @@ void MDD::lecturaDatosFichero(char* archivo){
     
 };
 
-
-
 void MDD::imprimirMatriz(){
     cout << "Matriz de valores: "<< endl;
     for(int i=0; i<num_elem-1; i++){
@@ -70,9 +69,30 @@ void MDD::imprimirMatriz(){
 };
 
 
-void MDD::greedy(int n, int m, double *dist){
-
+vector<int> MDD::greedy(int seed){
+    /**
+     * @brief Vector de booleanos (inicializado en TRUE) en el cual cada posicion corresponde a un elemento de la lista de candidatos,
+     * el cual si es true sigue siendo un candidato para el vector solucion y
+     * si es false significa que ya ha sido introducido en el vector solucion y no debemos operar con el.
+     */
+    vector<bool> listaCandidatos(num_elem, true); 
+    /**
+     * @brief Vector que contiene el elemento de conjunto que forman la solucion al problema
+     */
+    vector<int> solucion(num_sel);
     
+    srand(seed);                                                // Configuro la semilla para el valor aleatorio
+    int candidato_inicial = rand() % (num_elem-1);              // Escojo el valor aleatorio con el que empezar el algoritmo
+    solucion.push_back(candidato_inicial);                      // Coloco el primer elemento escogido aleatoriamente en el vector solucion
+    listaCandidatos[candidato_inicial] = false;                 // Elimino el valor escogido de la lista de candidatos
+
+    // Inicio la busqueda 
+    while (solucion.size() < num_sel){
+        
+        
+
+    }
 
 
+return solucion;
 };
