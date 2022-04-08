@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+
 using namespace std;
 
 int main(int argc, char** argv){
@@ -20,6 +21,11 @@ int main(int argc, char** argv){
 
     Problema.imprimirMatriz();
 
-    Problema.greedy(1);
-    cout << endl; 
+  /*   vector<int> sol = Problema.greedy(1);
+
+    cout << "La solucion es: (";
+    for(int i=0; i<sol.size(); i++){
+        cout <<sol[i]<<" ";
+    }
+    cout << ")" << endl; */ 
 }

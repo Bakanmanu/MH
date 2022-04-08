@@ -16,9 +16,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
-
-#include "random.hpp"
+#include <random>
+#include <utility>
 
 using namespace std;
 
@@ -29,8 +28,18 @@ using namespace std;
 
 class MDD{
     private:
+        
         vector<vector<double>> matriz;
-        int num_elem, num_sel;
+        
+        int num_elem,
+            num_sel;
+
+        /**
+         * @brief Vector de booleanos (inicializado en TRUE) en el cual cada posicion corresponde a un elemento de la lista de candidatos,
+         * el cual si es true sigue siendo un candidato para el vector solucion y
+         * si es false significa que ya ha sido introducido en el vector solucion.
+         */
+        vector<bool> listaCandidatos; 
 
     public:
         /**
@@ -39,7 +48,7 @@ class MDD{
          * @param archivo 
          */
         MDD(char* archivo);      
-        
+
         /**
          * @brief Metodo para guardar los valores dados en un fichero, los valores a tomar son:
          * num_elem -> Número de elementos del problema
@@ -56,6 +65,24 @@ class MDD{
          */
         void imprimirMatriz();
 
+        /**
+         * @brief Obtiene el valor de la matriz,
+         * teniendo en cuenta que solo está rellena la diagonal superior
+         * Con lo cual si con los indices dados el valor es 0, 
+         * se devuelve el valor con los indices permutados
+         * @param indice1 
+         * @param indice2 
+         * @return double 
+         */
+        double getValorMatriz(int indice1, int indice2);
+
+        /**
+         * @brief Calcula la suma de distancias del candidato al vector solucion
+         * 
+         * @param candidato 
+         * @return double 
+         */
+        double calcularSumaDistancias(vector<int> &solucion, int candidato);
 
         /**
          * @brief Función que aplicará el algoritmo greedy para resolver el problema
@@ -69,8 +96,6 @@ class MDD{
          * 
          */
         void BusquedaLineal();
-
-
 
 };
 #endif
