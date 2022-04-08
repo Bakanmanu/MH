@@ -88,9 +88,13 @@ double MDD::calcularSumaDistancias(vector<int> &solucion, int candidato){
     return suma_distancias;
 }
 
-double obtenerDistanciaMax();
+double MDD::obtenerDistanciaMax(vector<pair<int, double>> distancias){
 
-double obtenerDistanciaMin();
+}
+
+double MDD::obtenerDistanciaMin(vector<pair<int, double>> distancias){
+
+}
 
 
 vector<int> MDD::greedy(int seed){
@@ -104,22 +108,35 @@ vector<int> MDD::greedy(int seed){
 
     // Inicio la busqueda hasta completar el vector solucion
     while (solucion.size() < num_sel){
-        pair<int,double>  dispersion_min,                     //Pareja minima que contiene el indice y su dispersion 
-                distancia_min,
-                distancia_sol,
-                distancia_aux;
+        pair<int,double>    dispersion_min;                     //Pareja minima que contiene el indice y su dispersion 
+        
+        double              distancia_min,
+                            distancia_sol,
+                            distancia_aux;
 
         vector<pair<int, double>>   funcion_suma_distancias,        //Vector de pares que contiene el elemento y la suma de las distancias a los elementos del vector solucion(indice, suma_distancias_indice)
-                                    suma_distancias_solucion;       //Vector SumaAnterior que se irá actualizando cada vez que se inserte un nuevo elemento al vector solucion
-        
+                                    suma_distancias_solucion;      //Vector SumaAnterior que se irá actualizando cada vez que se inserte un nuevo elemento al vector solucion
+                                    
         //Comienzo la obtencion de la dispersion de cada elemento
         for(int i=0; i<listaCandidatos.size(); i++){                //Itero sobre los candidatos para actualizar la suma de distancias
+            //Obtengo la suma_distancia del elemento de la lista de candidatos
+            distancia_aux = calcularSumaDistancias(solucion, i);
+            //Actualizo la suma_distancias del vector solucion
+            for(int j=0; j<suma_distancias_solucion.size(); j++){
+                vector<pair<int,double>> suma_dist_sol_aux(suma_distancias_solucion);   //Copiamos el vector suma_solucion para no modificar el original hasta saber cual es el elemento a introducir
+
+
+            }
+
+
+
+           
             // Actualizo suma distancias
-            if(listaCandidatos[i]){                                 //Actualiza la suma de los elementos que no estan en el vector solucion
+           /*  if(listaCandidatos[i]){                                 //Actualiza la suma de los elementos que no estan en el vector solucion
                 funcion_suma_distancias.emplace_back(pair<int, double>(i, calcularSumaDistancias(solucion, i)));
             }else{                                                  //Actualiza la suma de los elementos del vector solucion
                 suma_distancias_solucion.emplace_back(pair<int, double>(i, calcularSumaDistancias(solucion, i)));
-            }
+            } */
         
         
         

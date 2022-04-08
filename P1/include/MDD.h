@@ -84,6 +84,10 @@ class MDD{
          */
         double calcularSumaDistancias(vector<int> &solucion, int candidato);
 
+        double obtenerDistanciaMax(vector<pair<int, double>> distancias);
+
+        double obtenerDistanciaMin(vector<pair<int, double>> distancias);
+
         /**
          * @brief Función que aplicará el algoritmo greedy para resolver el problema
          * 
