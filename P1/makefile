@@ -18,6 +18,8 @@ bin/main: obj/MDD.o obj/main.o
 exec:
 	./bin/main datos_MDD/GKD-b_10_n25_m7.txt
 
+exec_test:
+	./bin/main datos_MDD/test
 
 clear: 
 	rm obj/*.o bin/*
