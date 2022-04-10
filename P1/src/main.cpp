@@ -21,11 +21,11 @@ int main(int argc, char** argv){
 
     Problema.imprimirMatriz();
 
-  /*   vector<int> sol = Problema.greedy(1);
+    vector<int> sol = Problema.greedy(1);
 
     cout << "La solucion es: (";
     for(int i=0; i<sol.size(); i++){
         cout <<sol[i]<<" ";
     }
-    cout << ")" << endl; */ 
+    cout << ")" << endl; 
 }
