@@ -114,11 +114,10 @@ vector<int> MDD::greedy(int seed){
     vector<int>                 solucion;                       //Vector que contiene el conjunto de elementos que forman la solucion al problema
     
     vector<pair<int, double>>   suma_distancias_solucion;       //Vector SumaAnterior que se irá actualizando cada vez que se inserte un nuevo elemento al vector solucion
-    
-                        
-    double              distancia_min,
+           
+    double              dispersion_fin,
+                        distancia_min,
                         distancia_max,
-                        distancia_sol,
                         distancia_aux;
 
     srand(seed);                                                // Configuro la semilla para el valor aleatorio
@@ -130,39 +129,28 @@ vector<int> MDD::greedy(int seed){
     // Inicio la busqueda hasta completar el vector solucion
     while (solucion.size() < num_sel){
 
-    pair<int,double>            dispersion_min(0,0.0);          //Pareja minima que contiene el indice y su dispersion 
+        pair<int,double> dispersion_min(0,0.0);                         //Pareja minima que contiene el indice y su dispersion 
                                     
         //Comienzo la obtencion de la dispersion de cada elemento
         for(int i=0; i<listaCandidatos.size(); i++){                //Itero sobre los candidatos para actualizar la suma de distancias
-            
-            if(listaCandidatos[i]){
-//              cout << "Calculando distancia..."<< endl;
-                cout << "Candidato: " << i << endl << endl; //#DEBUG
+            if(listaCandidatos[i]){         // Si el valor es true significa que el candidato a calcular no está en el vector solucion
 
-                //Obtengo la suma_distancia del nuevo candidato
-                distancia_aux = calcularSumaDistancias(solucion, i);
-
-                cout << "Distancia calculada."<< distancia_aux << endl; //#debug
-                
                 //Copiamos el vector suma_solucion para no modificar el original hasta saber cual es el elemento a introducir
-                vector<pair<int,double>> suma_dist_sol_aux(suma_distancias_solucion);       
-                
-//              cout << "Actualizando sumas..." << endl;        //#debug
+                vector<pair<int,double>> suma_dist_sol_aux(suma_distancias_solucion);                
                 
                 //Actualizo la suma_distancias del vector aux_solucion
                 for(int j=0; j<suma_distancias_solucion.size(); j++)
                     suma_dist_sol_aux[j].second += getValorMatriz(suma_dist_sol_aux[j].first, i);
                 
-                
+                //Obtengo la suma_distancia del nuevo candidato
+                distancia_aux = calcularSumaDistancias(solucion, i);
+
                 //Introduzco la suma distancia del nuevo candidato
                 suma_dist_sol_aux.emplace_back(pair<int,double>(i, distancia_aux));   
 
                 //Actualizo los maximos y los minimos del vector 
                 distancia_min = obtenerDistanciaMin(suma_dist_sol_aux);
                 distancia_max = obtenerDistanciaMax(suma_dist_sol_aux);
-
-                cout    << "Distancia minima del vector: "<< distancia_min << endl 
-                        << "Distancia maxima del vector: "<< distancia_max << endl;
 
                 double dispersion_candidato;                    // Valor de la dispersion del vector con el candidato introducido
 
@@ -175,61 +163,38 @@ vector<int> MDD::greedy(int seed){
                 pair<int, double> dispersion_aux(i,dispersion_candidato);
 
                 // Comprobacion para recibir la dispersion calculada del primer candidato
-                if(dispersion_min.second == 0.0){
+                if(dispersion_min.second == 0.0)
                     dispersion_min = dispersion_aux;
-                }   // Compruebo si la dispersion es menor que la obtenida anteriormente       
-                else if(dispersion_aux.second < dispersion_min.second){     
+                  // Compruebo si la dispersion es menor que la obtenida anteriormente       
+                else if(dispersion_aux.second < dispersion_min.second) 
                     dispersion_min = dispersion_aux;
-                }
-                cout    << endl 
-                        << "--------------------------------------------" 
-                        << endl << endl;
-            }
-           
-                    
+                
+            }      
         }   // Una vez obtenido el candidato a introducir
-        cout <<endl << endl;
 
-        cout << "Candidato obtenido: " << dispersion_min.first << endl;
-
-        cout << "Introduciendo candidato en el vector solucion..." << endl;
-            // Introduzco el indice del candidato en el vector solucion
+        // Introduzco el indice del candidato en el vector solucion
         solucion.push_back(dispersion_min.first);
             
-        cout << "Tamaño suma_distancias_solucion antes de introducir nuevo elemento: " << suma_distancias_solucion.size() <<endl;
-            // Introduzco el candidato en el vector de suma_distancias para actualizarlo mas tarde
+        // Introduzco el candidato en el vector de suma_distancias para actualizarlo mas tarde
         suma_distancias_solucion.emplace_back(pair<int, double>(dispersion_min.first,NULL));
 
-        cout << "Tamaño suma_distancias_solucion despues dee introducir el nuevo elemento: " << suma_distancias_solucion.size() << endl;
-
-
-        cout << "Candidato introducido. "<< endl;
-            // Elimino el candidato de la lista de candidatos
+        // Elimino el candidato de la lista de candidatos
         listaCandidatos[dispersion_min.first]= false;
 
-        cout << "Candidato eliminado de listaCandidatos"<<endl;
-
-
-            // Actualizo el vector de sumas distancias solucion         #CoreDumped
+        // Actualizo el vector de sumas distancias solucion  
         if(solucion.size() > 1){
-
             for(int i=0;i<suma_distancias_solucion.size();i++){
-                cout << "Iteracion " << i << " del actualizador del vector distancias_solucion" << endl;
                 suma_distancias_solucion[i].second = calcularSumaDistancias(solucion, suma_distancias_solucion[i].first);
-
             }
- 
         }
-
+        dispersion_fin = dispersion_min.second;         // Dispersion_fin guardará en todos los casos la dispersion del vector solución    
     }
-
-
+cout << dispersion_fin << endl;    // Imprime la dispersión final para la obtencion de datos para la tabla de la memoria
 return solucion;
 }
 
 
 
-
 void MDD::BusquedaLineal(){
-
+    // Algoritmo no implementado
 }
