@@ -89,9 +89,9 @@ class MDD{
          */
         double calcularSumaDistancias(vector<int> &solucion, int candidato);
 
-        double obtenerDistanciaMax(vector<pair<int, double>> distancias);
+        double obtenerDistanciaMax(vector<double> distancias);
 
-        double obtenerDistanciaMin(vector<pair<int, double>> distancias);
+        double obtenerDistanciaMin(vector<double> distancias);
 
          /**
          * @brief Getter del numero de elementos del problema
@@ -124,6 +124,10 @@ class MDD{
          * @param conj_sol 
          */
         void mostrarMatrizBool(vector<vector<bool>> conj_sol);
+
+
+        vector<double> calcularVectorDistancias(vector<bool> v_sol);
+
 
         /***  Metodos de los cruces  ***/
 

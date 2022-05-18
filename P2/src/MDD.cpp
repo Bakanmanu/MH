@@ -89,27 +89,43 @@ double MDD::calcularSumaDistancias(vector<int> &solucion, int candidato){
     return suma_distancias;
 }
 
-double MDD::obtenerDistanciaMax(vector<pair<int, double>> distancias){
+
+vector<double> MDD::calcularVectorDistancias(vector<bool> v_sol){
+    vector<double> v_dist;
+    for(unsigned i=0; i<v_sol.size(); i++){         // 
+        double suma_dist=0;                         // Inicializamos la variable que almacenara la suma de distancias
+        if(v_sol[i]){                               // Si la posicion i del vector es true, entendemos que el elemento con ese indice pertenece a la solucion proporcionada y procedemos a trabajar con el
+            for(unsigned j=0; j<v_sol.size();j++){  
+                if(v_sol[j])                        // Solo debemos tener en cuenta los elementos que sean de la solucion para la suma de distancias 
+                suma_dist += getValorMatriz(i, j);
+            }
+            v_dist.push_back(suma_dist);            // Una vez obtenida la distancia, la introducimos en el vector de distancias 
+        }
+    }
+    return v_dist;
+}
+
+
+double MDD::obtenerDistanciaMax(vector<double> distancias){
     double  dist_max = 0;                   // Inicializamos la dist_max a 0 para que siempre obtenga al menos un valor
     for(int i=0; i<distancias.size(); i++)  // Iteramos sobre el vector dado
-        if(distancias[i].second>dist_max)   // Si el valor del vector es mayor que la dist_max  
-            dist_max = distancias[i].second;// Reasignamos el valor de dist_max
+        if(distancias[i]>dist_max)   // Si el valor del vector es mayor que la dist_max  
+            dist_max = distancias[i];// Reasignamos el valor de dist_max
 
     return dist_max;        
 }
 
-double MDD::obtenerDistanciaMin(vector<pair<int, double>> distancias){
-    double dist_min=distancias[0].second;   // Inicializo la dist_min al primer valor del vector solucion para tener una referencia inicial especifica
+double MDD::obtenerDistanciaMin(vector<double> distancias){
+    double dist_min=distancias[0];   // Inicializo la dist_min al primer valor del vector solucion para tener una referencia inicial especifica
     
     for (int i=1; i<distancias.size(); i++) // Itero sobre el vector dado
-        if(distancias[i].second < dist_min) // Si el valor del vector es mayor que la dist_min
-            dist_min = distancias[i].second;// Reasigno el valor de dist_min
+        if(distancias[i] < dist_min)        // Si el valor del vector es mayor que la dist_min
+            dist_min = distancias[i];       // Reasigno el valor de dist_min
     
     return dist_min;
 }
 
-
-vector<int> MDD::greedy(int seed){
+/*vector<int> MDD::greedy(int seed){
 
     vector<int>                 solucion;                       //Vector que contiene el conjunto de elementos que forman la solucion al problema
     
@@ -192,7 +208,7 @@ vector<int> MDD::greedy(int seed){
 cout << dispersion_fin << endl;    // Imprime la dispersión final para la obtencion de datos para la tabla de la memoria
 return solucion;
 }
-
+*/
 
 
 void MDD::BusquedaLineal(){
@@ -205,12 +221,12 @@ vector<vector<bool>> MDD::generarSoluciones(){
     vector<vector<bool>> matriz_sol(NUM_CONJ_SOL, vector<bool> (getN(), 0));
 
     // Procedemos a la generacion de los vectores de manera aleatoria
-    for(unsigned i=0; i<matriz_sol.size(); i++){   // buble para iterar sobre los vectores
+    for(unsigned i=0; i<matriz_sol.size(); i++){   // bucle para iterar sobre los vectores
         for(unsigned j=0; j<getM(); j++){   // bucle para insertar una cantidad M de 1s en cada vector
-            int rand_pos = rand()%getN();   // Posicion del vector aleatoria
-            if(matriz_sol[i][rand_pos] == 0)    
+            int rand_pos = rand()%getN();       // Posicion del vector aleatoria
+            if(matriz_sol[i][rand_pos] == 0)    // Comprobar que esa posicion no se haya repetido
                 matriz_sol[i][rand_pos] = 1;
-            else                            // En caso de que se repita la posicion, reiniciamos la iteracion
+            else                                // En caso de que se repita la posicion, reiniciamos la iteracion
                 j--;
         }
     }
