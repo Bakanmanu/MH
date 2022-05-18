@@ -28,11 +28,20 @@ using namespace std;
 
 class MDD{
     private:
+        /******** CONSTANTES *********/
         
+        const int NUM_CONJ_SOL = 50;
+
+        /**
+         * @brief Matriz que contiene los datos de las distancias de un indice a otro, solo está completa la diagonal superior derecha
+         * 
+         */
         vector<vector<double>> matriz;
         
         int num_elem,
             num_sel;
+
+       
 
         /**
          * @brief Vector de booleanos (inicializado en TRUE) en el cual cada posicion corresponde a un elemento de la lista de candidatos,
@@ -40,6 +49,8 @@ class MDD{
          * si es false significa que ya ha sido introducido en el vector solucion.
          */
         vector<bool> listaCandidatos; 
+
+
 
         /*********** Métodos privados que usarán los algoritmos ************/
         
@@ -82,12 +93,50 @@ class MDD{
 
         double obtenerDistanciaMin(vector<pair<int, double>> distancias);
 
+         /**
+         * @brief Getter del numero de elementos del problema
+         * 
+         * @return int 
+         */
+        int getN(){return num_elem;};
+
+        /**
+         * @brief Getter del numero de elementos que debe tener la solucion del problema 
+         * 
+         * @return int 
+         */
+        int getM(){return num_sel;};
+
+        /*************** Metodos privados creados para la practica 2 **************/
+
+        /**
+         * @brief Método para generar los vectores de soluciones aleatorios
+         * Para la creacion de los vectores aleatorios,
+         * voy a obtener posiciones del vector de manera aleatoria,
+         * que serán los elementos seleccionados para la solucion
+         * @return Conjunto de vectores solucion
+         */
+        vector<vector<bool>> generarSoluciones();
+
+        /**
+         * @brief Muestra la matriz de booleanos proporcionada
+         * 
+         * @param conj_sol 
+         */
+        void mostrarMatrizBool(vector<vector<bool>> conj_sol);
+
+        /***  Metodos de los cruces  ***/
+
+        void cruceUniforme(); 
+        void crucePosicion();
 
     public:
+        
+        
         /**
-         * @brief Construct a new MDD object
+         * @brief Constructor del problema que obtiene los datos del archivo pasado por parámetros y los inicializa en los atributos
          * 
-         * @param archivo 
+         * @param archivo Variable cuyo valor es la direccion de un archivo txt con los valores a tener en cuenta en el problemas
          */
         MDD(char* archivo);      
 
@@ -108,25 +157,25 @@ class MDD{
 
 
         /**
-         * @brief Función del algoritmo generacional elitista con cruce uniforme
+         * @brief Función del algoritmo genetico generacional con cruce uniforme
          * 
          */
         void AGGU();
 
         /**
-         * @brief Función del algoritmo generacional elitista con cruce de posición
+         * @brief Función del algoritmo genetico generacional con cruce de posición
          * 
          */
         void AGGP();
 
         /**
-         * @brief Función del algoritmo generacional estacionario con cruce uniforme
+         * @brief Función del algoritmo genetico estacionario con cruce uniforme
          * 
          */
         void AGEU();
 
         /**
-         * @brief Función del algoritmo generacional estacionario con cruce de posición
+         * @brief Función del algoritmo genetico estacionario con cruce de posición
          * 
          */
         void AGEP();

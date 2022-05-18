@@ -198,3 +198,44 @@ return solucion;
 void MDD::BusquedaLineal(){
     // Algoritmo no implementado
 }
+
+vector<vector<bool>> MDD::generarSoluciones(){
+    // Creamos el conjunto de vectores solucion -> matriz_sol[Vector_i][elem_vector]
+    // Cada posicion del vector de booleanos representa un elemento y su valor, si dicho elemento es seleccionado o no
+    vector<vector<bool>> matriz_sol(NUM_CONJ_SOL, vector<bool> (getN(), 0));
+
+    // Procedemos a la generacion de los vectores de manera aleatoria
+    for(unsigned i=0; i<matriz_sol.size(); i++){   // buble para iterar sobre los vectores
+        for(unsigned j=0; j<getM(); j++){   // bucle para insertar una cantidad M de 1s en cada vector
+            int rand_pos = rand()%getN();   // Posicion del vector aleatoria
+            if(matriz_sol[i][rand_pos] == 0)    
+                matriz_sol[i][rand_pos] = 1;
+            else                            // En caso de que se repita la posicion, reiniciamos la iteracion
+                j--;
+        }
+    }
+    return matriz_sol;
+}
+
+void MDD::mostrarMatrizBool(vector<vector<bool>> conj_sol){
+    for (int i=0; i<conj_sol.size(); i++){
+        cout << "| ";
+      //  cout << "Iteracion " << i << " del primer for. "<< endl;
+        for(int j=0; j<conj_sol[i].size(); j++){
+        //    cout << "Iteracion " << j << " del segundo for. "<< endl;
+            cout << conj_sol[i][j] << " ";
+        }
+        cout << "|"<<endl;        
+    }
+}
+
+void MDD::cruceUniforme(){
+
+}
+
+void MDD::crucePosicion(){
+
+}
+
+
+
